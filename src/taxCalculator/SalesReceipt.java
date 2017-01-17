@@ -1,16 +1,18 @@
 package taxCalculator;
 
 import java.math.BigDecimal;
+import java.util.regex.Pattern;
 
 public class SalesReceipt {
 	
 	Cart cart;
 	
-	public SalesReceipt(String[] cartArray){
-		cart = CreateCart(cartArray);		
+	public Cart createSalesReceipt(String[] cartArray){
+		cart = convertCart(cartArray);
+		return cart;
 	}
 	
-	private Cart CreateCart(String[] cartArray) {
+	private Cart convertCart(String[] cartArray) {
 		Cart cart = new Cart();
 		ItemCart itemCart;
 		
@@ -28,7 +30,7 @@ public class SalesReceipt {
 			}
 			
 			itemCart.setItemDescription(itemDescription.trim());
-			
+			calculateTax(itemCart);
 			cart.addItemCart(itemCart);
 		}
 		
@@ -36,8 +38,21 @@ public class SalesReceipt {
 	}
 	
 	private void calculateTax(ItemCart itemCart){
-		if(itemCart.getItemDescription().contains(s))
-	}
+		
+		boolean b = Pattern.matches("(?i)book.*|(?i)chocolate.*|(?i)pill.*", itemCart.getItemDescription());
+		
+		if(!b){
+			itemCart.setTax(itemCart.getPrice().multiply(new BigDecimal(1.1)));
+			
+		}
+		
+		b = Pattern.matches("(?i)imported.*", itemCart.getItemDescription());
+		
+		if(b){
+			itemCart.setTax(itemCart.getPrice().multiply(new BigDecimal(1.05)));
+		}
+	  }
+		
 
 }
 

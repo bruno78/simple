@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 public class ItemCart {
 	private Integer quantity;
 	private String itemDescription;
-	private BigDecimal price;
-	private BigDecimal tax;
+	private BigDecimal price = new BigDecimal(0);
+	private BigDecimal tax = new BigDecimal(0);
 	
 	public Integer getQuantity() {
 		return quantity;

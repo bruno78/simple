@@ -6,7 +6,11 @@ public class Cart {
 	private ArrayList<ItemCart> itemCart;
 	
 	
-	public ArrayList<ItemCart> getItemCart() {
+	public Cart(){
+		itemCart = new ArrayList<ItemCart>();
+	}
+	
+	public ArrayList<ItemCart> getItemCart(){
 		return itemCart;
 	}
 
