@@ -17,7 +17,7 @@ public class Test {
 		Cart cart = salesReceipt.createSalesReceipt(input1);
 		
 		for(ItemCart itemCart : cart.getItemCart()){
-			System.out.println(itemCart.getQuantity() + " " + itemCart.getItemDescription() + ": " + itemCart.getPrice().add(itemCart.getTax()));
+			System.out.println(itemCart.getQuantity() + " " + itemCart.getItemDescription() + ": " + itemCart.getPrice());
 		}
 		
 	}

@@ -24,8 +24,8 @@ public class SalesReceipt {
 			
 			Integer i = 1;
 			String itemDescription = new String();
-			while(itemArray[i].equals("at")){
-				itemDescription = itemArray[i]+ " ";
+			while(!itemArray[i].equals("at")){
+				itemDescription += itemArray[i]+ " ";
 				i++;	
 			}
 			
@@ -39,18 +39,20 @@ public class SalesReceipt {
 	
 	private void calculateTax(ItemCart itemCart){
 		
-		boolean b = Pattern.matches("(?i)book.*|(?i)chocolate.*|(?i)pill.*", itemCart.getItemDescription());
-		
+		boolean b = Pattern.matches(".*(?i)book.*|.*(?i)chocolate.*|.*(?i)pill.*", itemCart.getItemDescription());
+		BigDecimal tax = new BigDecimal(0);
 		if(!b){
-			itemCart.setTax(itemCart.getPrice().multiply(new BigDecimal(1.1)));
-			
+			tax = itemCart.getPrice().multiply(new BigDecimal(0.1).multiply(new BigDecimal (itemCart.getQuantity())));
 		}
 		
 		b = Pattern.matches("(?i)imported.*", itemCart.getItemDescription());
 		
 		if(b){
-			itemCart.setTax(itemCart.getPrice().multiply(new BigDecimal(1.05)));
+			tax = itemCart.getPrice().add(tax).multiply(new BigDecimal(0.05).multiply(new BigDecimal (itemCart.getQuantity())));
 		}
+		
+		itemCart.setTax(tax);
+		itemCart.setPrice(itemCart.getPrice().add(itemCart.getTax()).multiply(new BigDecimal (itemCart.getQuantity())));
 	  }
 		
 
