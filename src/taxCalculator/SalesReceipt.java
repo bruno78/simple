@@ -45,16 +45,19 @@ public class SalesReceipt {
 			tax = itemCart.getPrice().multiply(new BigDecimal(0.1).multiply(new BigDecimal (itemCart.getQuantity())));
 		}
 		
-		b = Pattern.matches("(?i)imported.*", itemCart.getItemDescription());
+		b = Pattern.matches(".*(?i)imported.*", itemCart.getItemDescription());
 		
 		if(b){
-			tax = itemCart.getPrice().add(tax).multiply(new BigDecimal(0.05).multiply(new BigDecimal (itemCart.getQuantity())));
+			tax = tax.add(itemCart.getPrice().multiply(new 
+					BigDecimal(0.05).multiply(new BigDecimal(itemCart.getQuantity()))));
 		}
+		
+		BigDecimal scale = new BigDecimal(0.05);
+		tax = ((tax.divide(scale)).setScale(0, BigDecimal.ROUND_UP)).multiply(scale);
 		
 		itemCart.setTax(tax);
 		itemCart.setPrice(itemCart.getPrice().add(itemCart.getTax()).multiply(new BigDecimal (itemCart.getQuantity())));
-	  }
-		
-
+	}
+	
 }
 

@@ -23,25 +23,19 @@ public class Test {
 		input3[2] = ("1 pack of headache pills at 9.75");
 		input3[3] = ("1 box of imported chocolates at 11.25");
 		
+		System.out.println("\n");
 		SalesReceipt salesReceipt = new SalesReceipt();
-		Cart cart = salesReceipt.createSalesReceipt(input1);
+		Cart cart1 = salesReceipt.createSalesReceipt(input1);
+		cart1.checkOut();
+		System.out.println("\n \n");
 		
-		for(ItemCart itemCart : cart.getItemCart()){
-			System.out.println(itemCart.getQuantity() + " " + itemCart.getItemDescription() + ": " + itemCart.getPrice());
-		}
+		Cart cart2 = salesReceipt.createSalesReceipt(input2);
+		cart2.checkOut();
+		System.out.println("\n \n");
 		
-		cart = salesReceipt.createSalesReceipt(input2);
-		
-		for(ItemCart itemCart : cart.getItemCart()){
-			System.out.println(itemCart.getQuantity() + " " + itemCart.getItemDescription() + ": " + itemCart.getPrice());
-		}
-		
-		cart = salesReceipt.createSalesReceipt(input3);
-		
-		for(ItemCart itemCart : cart.getItemCart()){
-			System.out.println(itemCart.getQuantity() + " " + itemCart.getItemDescription() + ": " + itemCart.getPrice());
-		}
-		
+		Cart cart3 = salesReceipt.createSalesReceipt(input3);
+		cart3.checkOut();
+		System.out.println("\n \n");
 	}
 
 }
